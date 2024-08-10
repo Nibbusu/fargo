@@ -56,7 +56,7 @@ func generatePDF(f Faktura) error {
 		return fmt.Errorf("chyba pri získavaní domovského priečinka: %v", err)
 	}
 
-	faDir := filepath.Join(homeDir, "Desktop", "FAs")
+	faDir := filepath.Join(homeDir, "Desktop", "Fargo", "FAs")
 	err = os.MkdirAll(faDir, 0755)
 	if err != nil {
 		return fmt.Errorf("chyba pri vytváraní priečinka: %v", err)

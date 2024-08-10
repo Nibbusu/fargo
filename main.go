@@ -64,8 +64,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.invoiceCreated = true
 		m.pdfPath = msg.path
 		return m, tea.Sequence(
-			tea.Println("Faktúra bola úspešne vytvorená!"),
-			tea.Println(fmt.Sprintf("PDF súbor bol uložený: %s", m.pdfPath)),
 			func() tea.Msg {
 				openPDF(m.pdfPath)
 				return nil
@@ -100,6 +98,7 @@ func (m model) View() string {
 	b.WriteString("\nStlačte Ctrl+N pre pridanie novej položky\n")
 
 	if m.invoiceCreated {
+		b.WriteString("\n")
 		b.WriteString(successStyle.Render("Faktúra bola úspešne vytvorená!"))
 		b.WriteString("\n")
 		b.WriteString(successStyle.Render(fmt.Sprintf("PDF súbor bol uložený: %s", m.pdfPath)))
@@ -225,7 +224,7 @@ func createInvoiceCmd(inputs []textinput.Model) tea.Cmd {
 			return errMsg(fmt.Errorf("chyba pri získavaní domovského priečinka: %v", err))
 		}
 
-		pdfPath := filepath.Join(homeDir, "Desktop", "FAs", fmt.Sprintf("%s.pdf", faktura.Cislo))
+		pdfPath := filepath.Join(homeDir, "Desktop", "Fargo", "FAs", fmt.Sprintf("%s.pdf", faktura.Cislo))
 
 		return invoiceCreatedMsg{path: pdfPath}
 	}
